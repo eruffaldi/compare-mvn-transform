@@ -1,4 +1,8 @@
-% covariance comparison using likelihood ratio
+function [e,emu,eP] = comparemvn(m1,P1,m2,P2,mode)
+% covariance comparison using various methods
+%
+% References
+% Used: http://like.silk.to/studymemo/PropertiesOfMultivariateGaussianFunction.pdf
 % alternative: SAS https://support.sas.com/documentation/cdl/en/statug/63347/HTML/default/viewer.htm#statug_glimmix_a0000001447.htm
 % http://www.subcortex.net/research/code/testing-for-differences-in-multidimensional-distributions
 %
@@ -9,30 +13,23 @@
 % Estimation", Pattern Recognition, 2011. 
 % - DONE Fr?chet distance: http://www.sciencedirect.com/science/article/pii/0047259X8290077X
 %       HAS issues with chol(Sx*Sy)
-%
-% Summ up: http://like.silk.to/studymemo/PropertiesOfMultivariateGaussianFunction.pdf
-
 % Helling Distance implementations: http://it.mathworks.com/matlabcentral/fileexchange/36164-unscented-hellinger-distance-between-gmms
-%
 % Theory for general (sampled) distributions: Kolmogorov-Smirnov test in multidimension:http://articles.adsabs.harvard.edu/full/1987MNRAS.225..155F
-function [e,emu,eP] = comparemvn(m1,P1,m2,P2,mode)
 
 m1=m1(:);
 m2=m2(:);
 switch(mode)
     case 'frichet'
         
-emu = norm(m1-m2).^2;
+        emu = norm(m1-m2).^2;
 
-% The following is the
-try
-eP = trace(P1+P2-2*schol(P1*P2));
-catch me
-    eP = NaN;
-end
-
-e = emu + eP;
-
+        % The following is the
+        try
+        eP = trace(P1+P2-2*chol(P1*P2)); % SUBJECT to chol ISSUES, requires schol of ekfukf
+        catch me
+            eP = NaN;
+        end
+        e = emu + eP;
     case 'kl'
         D = length(P1);
         nP1 = det(P1);

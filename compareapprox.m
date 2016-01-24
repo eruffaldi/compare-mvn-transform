@@ -10,7 +10,9 @@ function [r,e]= compareapprox(fx,Jx,x0,P0,nsamples,uc,mode)
 % sigmac = sigma point options (see ekfukf)
 % mode = function for comparison: kl db bc fichet, default kl
 %
-% TODO: sigma point options
+% TODO: add other quadrature examples
+%
+% Emanuele Ruffaldi Scuola Superiore Sant'Anna 2016
 if isempty(mode)
     mode = 'kl';
 end

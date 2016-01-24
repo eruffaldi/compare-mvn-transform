@@ -17,6 +17,6 @@ p = r*unitC;
 p(1,:) = p(1,:) + x(1);
 p(2,:) = p(2,:) + x(2);
 
-plot(p(1,:),p(2,:),outline_color);
+h = plot(p(1,:),p(2,:),outline_color);
 
 
