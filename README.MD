@@ -8,6 +8,8 @@ The code simplifies the testing for different conditions and provides a 2x3 plot
 
 Metrics for comparing the resulting gaussians are also provided: KL, BC, DB and Frichet. Note that Frichet depends on chol so it is less reliable with semidefinite variances.
 
+Bonus: we have added a metrics of linearity of functions based on the Hessian. This will allow to evaluate the quality of linearization based on the specific non-linearity. The Hessian of a function f:Rn -> Rm is a tensor: [m,n,n].
+
 Example below of Function: [x2; 2x1(x2+x1)] evaluated at the Gaussian with mean [0.0054,1.01] and covariance [0.1525,-0.0823,",0.0575]. Sampling done with 500 points.
 
 ![Example of result for the function [x2; 2x1(x2+x1)] with point [0.0054,1.01] and variance [0.1525,-0.0823;-0.0823,0.0575] with sampling of 500](example.png)
