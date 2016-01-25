@@ -5,12 +5,16 @@ cx0 = num2cell(x0);
 
 % m n n 
 H = zeros(length(fs),length(xx),length(xx));
+dH = zeros(length(fs),1);
 for I=1:length(fs)
     Hsi = hessian(fs(I),xx); % n n 
     Hi =double(subs(Hsi,cxx,cx0));
     H(I,:,:) = Hi;
+    dH(I) = det(Hi);
 end
-Hm =max(abs(H(:)));
+%Hm =max(abs(H(:)));
+%Hm = abs(det(H));
+Hm = max(abs(dH));
 
 %Hs2 = hessian(fs(2),xx);
 %H2 = double(subs(Hs2,{xx(1),xx(2)},{x0(1),x0(2)}));
