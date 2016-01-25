@@ -2,7 +2,7 @@
 addpath external
 %OR use: mysetup from https://github.com/eruffaldi/matlabaddons
 % mysetup('ekfukf');
-
+rng(1);
 %% Define the function and compute the gradient, then an evaluable matlab function
 xx = sym(sym('x',[2,1]),'real');
 f = @(x) [x(2); 2*(x(1))*(x(2)+x(1))];
