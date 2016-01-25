@@ -12,9 +12,8 @@ for I=1:length(fs)
     H(I,:,:) = Hi;
     dH(I) = det(Hi);
 end
-%Hm =max(abs(H(:)));
-%Hm = abs(det(H));
-Hm = max(abs(dH));
+Hm =max(abs(H(:)));
+%Hm = max(abs(dH)); % good only for null point of jacobian
 
 %Hs2 = hessian(fs(2),xx);
 %H2 = double(subs(Hs2,{xx(1),xx(2)},{x0(1),x0(2)}));
