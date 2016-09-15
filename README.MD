@@ -17,3 +17,8 @@ Example below of Function: [x2; 2x1(x2+x1)] evaluated at the Gaussian with mean 
 Related:
 * Merwe PhD Thesis about UKF
 * Lorenzo Peppoloni PhD Thesis where discussing this issue for our motion reconstruction works
+
+=References=
+Please cite the following paper if you use some these consideration of this package for a Scientific Publication. We employed them for Inertial motion reconstruction.
+
+ Peppoloni L., Filippeschi A., Ruffaldi E. & Avizzano C.A. (2013). A novel 7 degrees of freedom model for upper limb kinematic reconstruction based   on wearable sensors. In Intelligent Systems and Informatics (SISY), 2013 IEEE 11th International Symposium on (pp. 105-110). .  doi:10.1109/SISY.2013.6662551
