@@ -1,4 +1,4 @@
-function [X,A] = ut_sigmas(M,P,c)
+function [X,A] = ut_sigmas(M,P,c,sqrtfx)
 
 
 % [A,err] = cholcov(P);
@@ -52,7 +52,14 @@ function [X,A] = ut_sigmas(M,P,c)
 % 
 % assert(isreal(A),'ut_sigmas should give real');
 
-A = chol(P);
+if nargin == 3
+    sqrtfx = [];
+end
+if isempty(sqrtfx) == 0
+    A = sqrtfx(P);
+else
+    A = chol(P);
+end
 
 A = A';
 

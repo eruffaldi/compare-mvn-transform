@@ -1,4 +1,4 @@
-function [r,e]= compareapprox(fx,Jx,x0,P0,nsamples,uc,mode)
+function [r,e]= compareapprox(fx,Jx,x0,P0,nsamples,uc,mode,usesqrtm)
 %
 % Compare Approximation
 %
@@ -61,7 +61,7 @@ r.lin = s;
 % Unscented
 [WM,W,c] = ut_mweights(length(x0),uc.alpha,uc.beta,uc.kappa);
 
-X = ut_sigmas(x0,P0,c);
+X = ut_sigmas(x0,P0,c,usesqrtm);
 s =[];
 Y = zeros(length(x0),size(X,2));
 for i=1:size(Y,2)
@@ -78,38 +78,50 @@ s.x.mu = X*WM;
 s.x.cov = X*W*X';
 
 r.ut = s;
+r.f = fx;
 
 if nargout > 1
     % result as table using 
     e = [];
-    e.y = [];
-    d = zeros(3);
-    e.y.names = {'sampling','linear','ut'};
-    values = {r.sampling,r.lin,r.ut};
-    for I=1:3
-        for J=I+1:3
-            w = comparemvn(values{I}.mu,values{I}.cov,values{J}.mu,values{J}.cov,mode);
-            d(I,J) = w;
-            d(J,I) = w;
-        end
+
+    if iscell(mode) == 0
+        modes = {mode};
+    else
+        modes = mode;
     end
     
-    e.y.ds = dataset([d,e.y.names],'ObsNames',e.y.names);
-    e.y.d = d;
-    
+    e.y = [];
+    e.y.names = {'sampling','linear','ut'};
     e.x = [];
     e.x.names = {'ref','sampling','sigma'};
-    d = zeros(3);
-    values = {r.x,r.sampling.x,r.ut.x};
-    for I=1:3
-        for J=I+1:3
-            w = comparemvn(values{I}.mu,values{I}.cov,values{J}.mu,values{J}.cov,mode);
-            d(I,J) = w;
-            d(J,I) = w;
+    for J=1:length(modes)
+        mode = modes{J};
+        
+        d = zeros(3);
+        values = {r.sampling,r.lin,r.ut};
+        for I=1:3
+            for J=I+1:3
+                w = comparemvn(values{I}.mu,values{I}.cov,values{J}.mu,values{J}.cov,mode);
+                d(I,J) = w;
+                d(J,I) = w;
+            end
         end
+
+        e.y.(mode).ds = dataset([d,e.y.names],'ObsNames',e.y.names);
+        e.y.(mode).d = d;
+
+        d = zeros(3);
+        values = {r.x,r.sampling.x,r.ut.x};
+        for I=1:3
+            for J=I+1:3
+                w = comparemvn(values{I}.mu,values{I}.cov,values{J}.mu,values{J}.cov,mode);
+                d(I,J) = w;
+                d(J,I) = w;
+            end
+        end
+        e.x.(mode).ds = dataset([d,e.x.names],'ObsNames',e.x.names);
+        e.x.(mode).d = d;
     end
-    e.x.ds = dataset([d,e.x.names],'ObsNames',e.x.names);
-    e.x.d = d;
 end
 
 

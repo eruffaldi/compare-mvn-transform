@@ -2,6 +2,8 @@ function displayapprox(r,same,sameratio)
 % displays the results: first row is x, second row is y
 %
 % Emanuele Ruffaldi Scuola Superiore Sant'Anna 2016
+mp=2;
+np=3;
 
     sx = r.x;
     sg = r.sampling;
@@ -9,7 +11,7 @@ function displayapprox(r,same,sameratio)
     figure;
 
     s = r.sampling;
-    subplot(2,3,1);
+    subplot(mp,np,1);
     % samples
     h1 = scatter(s.x.pts(:,dims(1)),s.x.pts(:,dims(2)),[],'r');
     hold on
@@ -25,7 +27,7 @@ function displayapprox(r,same,sameratio)
     title('Input with sampling');
 
 
-    subplot(2,3,4);
+    subplot(mp,np,4);
     % the result sampled
     h1 = scatter(s.pts(:,dims(1)),s.pts(:,dims(2)),[],'r');
     hold on
@@ -38,7 +40,7 @@ function displayapprox(r,same,sameratio)
 
 
     s = r.lin;
-    subplot(2,3,2);
+    subplot(mp,np,2);
     draw_ellipse(sx.mu(dims),sx.cov(dims,dims),'k');
     hold on
     h1 = scatter(sx.mu(dims(1)),sx.mu(dims(2)),'k');
@@ -46,7 +48,7 @@ function displayapprox(r,same,sameratio)
     legend([h1],{'Truth'});
 
     title('Input');
-    subplot(2,3,5);
+    subplot(mp,np,5);
     h1 = scatter(s.mu(dims(1)),s.mu(dims(2)),'g');
     hold on
     draw_ellipse(s.mu(dims),s.cov(dims,dims),'g');
@@ -63,7 +65,7 @@ function displayapprox(r,same,sameratio)
 
     % Unscented
     s = r.ut;
-    subplot(2,3,3);
+    subplot(mp,np,3);
     draw_ellipse(sx.mu(dims),sx.cov(dims,dims),'k');
     hold on
     h1 = scatter(sx.mu(dims(1)),sx.mu(dims(2)),'k');
@@ -75,7 +77,7 @@ function displayapprox(r,same,sameratio)
 
     title('Input with Sigma points');
 
-    subplot(2,3,6);
+    subplot(mp,np,6);
     draw_ellipse(sg.mu(dims),sg.cov(dims,dims),'k');
     hold on
     h2 = scatter(s.sigma(:,dims(1)),s.sigma(:,dims(2)),'m');
@@ -84,16 +86,18 @@ function displayapprox(r,same,sameratio)
     draw_ellipse(s.mu(dims),s.cov(dims,dims),'g');
     h1 = scatter(s.mu(dims(1)),s.mu(dims(2)),'g');
     
+    hold off
+    
     legend([h1,h2,h3],{'Unscented','Sigma Points','Est Sampled'});
     hold off
     title('Output Unscented');
 
     if same == 0
         if sameratio
-    for i=1:6
-        subplot(2,3,i);
-        axis equal
-    end
+        for i=1:6
+            subplot(2,3,i);
+            axis equal
+        end
         end
         return
     end
