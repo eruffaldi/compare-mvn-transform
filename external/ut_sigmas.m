@@ -58,10 +58,8 @@ end
 if isempty(sqrtfx) == 0
     A = sqrtfx(P);
 else
-    A = chol(P);
+    A = chol(P)';
 end
-
-A = A';
 
 X = [zeros(size(M)) A -A];
 X = sqrt(c)*X + repmat(M,1,size(X,2));

@@ -77,6 +77,10 @@ s.x.sigma = X';
 s.x.mu = X*WM;
 s.x.cov = X*W*X';
 
+Yp = ut_sigmas(s.mu,s.cov,c,usesqrtm);
+
+s.sigmapost = Yp';
+
 r.ut = s;
 r.f = fx;
 

@@ -38,6 +38,9 @@ switch(mode)
         e = alpha*sqrt(u'*Psi*u)+(1-alpha)*dr;
     case 'hellinger'
         e = sqrt(2*(1-bhattacharyya_coeff(u,P1,P2)));
+    case 'bhattacharyya_mean'
+        Gamma = (P1+P2)/2;
+        e = 1/8*(u'*inv(Gamma)*u);
     case 'bhattacharyya'
         % e = -log(bhattacharyya_coeff(u,P1,P2))
         Gamma = (P1+P2)/2;

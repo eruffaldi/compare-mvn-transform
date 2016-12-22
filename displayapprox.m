@@ -81,6 +81,7 @@ np=3;
     draw_ellipse(sg.mu(dims),sg.cov(dims,dims),'k');
     hold on
     h2 = scatter(s.sigma(:,dims(1)),s.sigma(:,dims(2)),'m');
+    h4 = scatter(s.sigmapost(:,dims(1)),s.sigmapost(:,dims(2)),'c');
 
     h3 = scatter(sg.mu(dims(1)),sg.mu(dims(2)),'k');
     draw_ellipse(s.mu(dims),s.cov(dims,dims),'g');
@@ -88,7 +89,7 @@ np=3;
     
     hold off
     
-    legend([h1,h2,h3],{'Unscented','Sigma Points','Est Sampled'});
+    legend([h1,h2,h3,h4],{'Unscented','Sigma Points','Est Sampled','Sigma Point Post'});
     hold off
     title('Output Unscented');
 

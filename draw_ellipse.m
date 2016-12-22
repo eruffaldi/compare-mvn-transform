@@ -9,6 +9,12 @@ radians = [0:(2*pi)/(n-1):2*pi,0];
 unitC = [sin(radians); cos(radians)];
 r = chol(c)';
 
+%[U,S,V] = svd(c);
+%R = V;
+%S = sqrt(S);
+%r = R*S;
+
+
 if nargin < 3
   outline_color = 'g';
 end
