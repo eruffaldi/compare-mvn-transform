@@ -22,7 +22,7 @@ Using Bhattacharyya-Riemman metrics linearization has error 2.73 while unscented
 Using Bhattacharyya-Riemman metrics linearization has error 5.4201 while unscented 4.8435. Using Symmetric KL divergence linearization is 1.124, unscented is 0.0012436.
 
 Related:
-* Merwe PhD Thesis about UKF
+* Merwe PhD Thesis about UKF ([PDF](http://www.cslu.ogi.edu/publications/ps/merwe04.pdf))
 * Lorenzo Peppoloni PhD Thesis where discussing this issue for our motion reconstruction works
 
 References
