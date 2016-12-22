@@ -6,7 +6,7 @@ Example code for presenting the comparison of MVN using: sampling, linearization
 
 The code simplifies the testing for different conditions and provides a 2x3 plot with input in the rows, and outputs in the columns (flattened over 2D).
 
-Metrics for comparing the resulting gaussians are also provided: Jeffreys Divergence (aka Symmetric KL), Bhattacharyya Distance, DB, Frichet, Jeffreys Divergence-Riemman, Bhattacharyya-Riemman . Note that Frichet depends on chol so it is less reliable with semidefinite variances. See the paper "A Note on Metric Properties for Some Divergence Measures", Abou-Moustafa and Ferrie,2012 for details.
+Metrics for comparing the resulting gaussians are also provided: Jeffreys Divergence (aka Symmetric KL), Bhattacharyya Distance, DB, Frichet, Jeffreys Divergence-Riemman, Bhattacharyya-Riemman . Note that Frichet depends on chol so it is less reliable with semidefinite variances. See the paper "A Note on Metric Properties for Some Divergence Measures" ([PDF](http://www.jmlr.org/proceedings/papers/v25/aboumoustafa12/aboumoustafa12.pdf)), Abou-Moustafa and Ferrie,2012 for details.
 
 Bonus: we have added a metrics of linearity of functions based on the Hessian. This will allow to evaluate the quality of linearization based on the specific non-linearity. The Hessian of a function f:Rn -> Rm is a tensor: [m,n,n].
 
@@ -22,8 +22,10 @@ Using Bhattacharyya-Riemman metrics linearization has error 2.73 while unscented
 Using Bhattacharyya-Riemman metrics linearization has error 5.4201 while unscented 4.8435. Using Symmetric KL divergence linearization is 1.124, unscented is 0.0012436.
 
 Related:
-* Merwe PhD Thesis about UKF
+* Merwe PhD Thesis about UKF ([PDF](http://www.cslu.ogi.edu/publications/ps/merwe04.pdf))
 * Lorenzo Peppoloni PhD Thesis where discussing this issue for our motion reconstruction works
+
+For a longer discussion about the geometrical intepretation of 2D covariances see this external post ([link](http://www.visiondummy.com/2014/04/geometric-interpretation-covariance-matrix/))
 
 References
 ------------------
