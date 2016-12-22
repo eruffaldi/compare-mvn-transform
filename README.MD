@@ -25,6 +25,8 @@ Related:
 * Merwe PhD Thesis about UKF ([PDF](http://www.cslu.ogi.edu/publications/ps/merwe04.pdf))
 * Lorenzo Peppoloni PhD Thesis where discussing this issue for our motion reconstruction works
 
+For a longer discussion about the geometrical intepretation of 2D covariances see this external post ([link](http://www.visiondummy.com/2014/04/geometric-interpretation-covariance-matrix/))
+
 References
 ------------------
 Please cite the following paper if you use some these consideration of this package for a Scientific Publication. We employed them for Inertial motion reconstruction.
