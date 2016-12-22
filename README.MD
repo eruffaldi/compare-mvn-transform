@@ -6,7 +6,7 @@ Example code for presenting the comparison of MVN using: sampling, linearization
 
 The code simplifies the testing for different conditions and provides a 2x3 plot with input in the rows, and outputs in the columns (flattened over 2D).
 
-Metrics for comparing the resulting gaussians are also provided: Jeffreys Divergence (aka Symmetric KL), Bhattacharyya Distance, DB, Frichet, Jeffreys Divergence-Riemman, Bhattacharyya-Riemman . Note that Frichet depends on chol so it is less reliable with semidefinite variances. See the paper "A Note on Metric Properties for Some Divergence Measures", Abou-Moustafa and Ferrie,2012 for details.
+Metrics for comparing the resulting gaussians are also provided: Jeffreys Divergence (aka Symmetric KL), Bhattacharyya Distance, DB, Frichet, Jeffreys Divergence-Riemman, Bhattacharyya-Riemman . Note that Frichet depends on chol so it is less reliable with semidefinite variances. See the paper "A Note on Metric Properties for Some Divergence Measures" ([PDF](http://www.jmlr.org/proceedings/papers/v25/aboumoustafa12/aboumoustafa12.pdf)), Abou-Moustafa and Ferrie,2012 for details.
 
 Bonus: we have added a metrics of linearity of functions based on the Hessian. This will allow to evaluate the quality of linearization based on the specific non-linearity. The Hessian of a function f:Rn -> Rm is a tensor: [m,n,n].
 
