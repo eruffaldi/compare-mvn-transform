@@ -47,8 +47,12 @@ switch(mode)
         e = 1/8*(u'*inv(Gamma)*u)+1/2*log(isqrt(det(P1))*isqrt(det(P2))*det(Gamma));
     case 'bhattacharyya_r'
         Gamma = (P1+P2)/2;
-        Psi = inv(P1)+inv(P2);        
+        Psi = inv(P1)+inv(P2);      
+        try
         l = eig(Psi);
+        catch me
+            l = Inf;
+        end
         dr = sqrt(sum(log(l).^2));
         e = alpha*sqrt(u'*inv(Gamma)*u)+(1-alpha)*dr;
         

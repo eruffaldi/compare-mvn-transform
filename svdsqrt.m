@@ -6,9 +6,9 @@ S = sqrt(S);
 Y = R*S;
 %disp('svd')
 %Y*Y'-X
-disp('cholcov')
+%disp('cholcov')
 C=cholcov(X)';
 if isempty(C) == 0
-    C*C'-X
+ %   C*C'-X
 end
 
