@@ -33,15 +33,15 @@ r.x = s;
 
 % Sampling
 R = mvnrnd2(x0,P0,nsamples);
-Y = zeros(nsamples,length(x0));
-for i=1:size(Y,1)
-    Y(i,:) = fx(R(i,:));
+Ys = zeros(nsamples,length(x0));
+for i=1:size(Ys,1)
+    Ys(i,:) = fx(R(i,:));
 end
 
 s = [];
-s.mu = mean(Y);
-s.cov = cov(Y);
-s.pts = Y;
+s.mu = mean(Ys);
+s.cov = cov(Ys);
+s.pts = Ys;
 
 s.x = [];
 s.x.mu = mean(R);
@@ -85,6 +85,12 @@ r.ut = s;
 r.f = fx;
 
 if nargout > 1
+    % NEW table:
+    % - variable(x or y)    
+    % - measure
+    % - value
+    ts = [];
+    
     % result as table using 
     e = [];
 
@@ -98,16 +104,50 @@ if nargout > 1
     e.y.names = {'sampling','linear','ut'};
     e.x = [];
     e.x.names = {'ref','sampling','sigma'};
-    for J=1:length(modes)
-        mode = modes{J};
+    
+    ulinY = [];
+    uutY = [];
+    uutX = [];
+    % for sampling modes
+    for K=1:length(modes)
+        if strcmp(mode,'sampling')
+            ulinY = mvnrnd2(r.lin.mu,r.lin.cov,nsamples);
+            uutY =  mvnrnd2(r.ut.mu,r.ut.cov,nsamples);
+            uutX =  mvnrnd2(r.ut.x.mu,r.ut.x.cov,nsamples);
+            break;
+        end
+    end
+    
+    for K=1:length(modes)
+        mode = modes{K};
         
         d = zeros(3);
         values = {r.sampling,r.lin,r.ut};
+        
+        % sampling
+        uss = {Ys, ulinY,uutY };
+        
         for I=1:3
             for J=I+1:3
-                w = comparemvn(values{I}.mu,values{I}.cov,values{J}.mu,values{J}.cov,mode);
+                if strcmp(mode,'sampling') == 0
+                    w = comparemvn(values{I}.mu,values{I}.cov,values{J}.mu,values{J}.cov,mode);
+                else
+                    %Z = squareform(pdist(uss{I},uss{J}));
+                    w = comparesampled(uss{I},uss{J});
+                end
                 d(I,J) = w;
                 d(J,I) = w;
+                ets = [];
+                ets.mode = mode;
+                ets.what = 'y';
+                ets.var1 = e.y.names{I};
+                ets.var2 = e.y.names{J};
+                ets.value = w;
+                if isempty(ts)
+                    ts = ets;
+                else                    
+                    ts = [ts; ets];
+                end
             end
         end
 
@@ -116,16 +156,34 @@ if nargout > 1
 
         d = zeros(3);
         values = {r.x,r.sampling.x,r.ut.x};
+        uss = {R,R,uutX};
+        
         for I=1:3
             for J=I+1:3
-                w = comparemvn(values{I}.mu,values{I}.cov,values{J}.mu,values{J}.cov,mode);
+                if strcmp(mode,'sampling') == 0
+                    w = comparemvn(values{I}.mu,values{I}.cov,values{J}.mu,values{J}.cov,mode);
+                else
+                    w = comparesampled(uss{I},uss{J});
+                end
                 d(I,J) = w;
                 d(J,I) = w;
+                ets = [];
+                ets.mode = mode;
+                ets.what = 'x';
+                ets.var1 = e.x.names{I};
+                ets.var2 = e.x.names{J};
+                ets.value = w;
+                if isempty(ts)
+                    ts = ets;
+                else                    
+                    ts = [ts; ets];
+                end
             end
         end
         e.x.(mode).ds = dataset([d,e.x.names],'ObsNames',e.x.names);
         e.x.(mode).d = d;
     end
+    e.table = struct2table(ts);
 end
 
 

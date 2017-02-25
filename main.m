@@ -19,19 +19,21 @@ R = [cos(a),-sin(a); sin(a) cos(a)];
 P = R*P0*R';
 
 usesqrtm = [];
-[r,e0]= compareapprox(f,J,x0,P,500,[],{'bhattacharyya_r','jeffreys','bhattacharyya_mean'},usesqrtm);
+[r0,e0]= compareapprox(f,J,x0,P,500,[],{'sampling','bhattacharyya_r','jeffreys','bhattacharyya_mean'},usesqrtm);
 %
 usesqrtm = @(x) svdsqrt(x); %(x) chol(eigv(x)); %cjo
-[r,e]= compareapprox(f,J,x0,P,500,[],{'bhattacharyya_r','jeffreys','bhattacharyya_mean'},usesqrtm);
+[r,e]= compareapprox(f,J,x0,P,500,[],{'sampling','bhattacharyya_r','jeffreys','bhattacharyya_mean'},usesqrtm);
 close all
+displayapprox(r0,1,1);
 displayapprox(r,1,1);
 Hm = hessianmax(fs,xx,x0)
 e.x.bhattacharyya_r.ds
 e.y.bhattacharyya_r.ds
 e.y.jeffreys.ds
 ej0 = e0.y.jeffreys.ds
-ebm = e.y.bhattacharyya_mean.ds
+ebm_svd = e.y.bhattacharyya_mean.ds
 ebm0 = e0.y.bhattacharyya_mean.ds
+e0.table
 
 %% Another
 rng(1)
@@ -47,9 +49,9 @@ x0 = [0.0054,1.01];
 
 % chol is better
 usesqrtm = [];
-[r0,e0] = compareapprox(f,J,x0,0.01^2*eye(2),500,[],{'bhattacharyya_r','jeffreys','bhattacharyya_mean'},usesqrtm);
+[r0,e0] = compareapprox(f,J,x0,0.01^2*eye(2),500,[],{'sampling','bhattacharyya_r','jeffreys','bhattacharyya_mean'},usesqrtm);
 usesqrtm = @(x) svdsqrt(x); %(x) chol(eigv(x)); %cjo
-[r,e] = compareapprox(f,J,x0,0.01^2*eye(2),500,[],{'bhattacharyya_r','jeffreys','bhattacharyya_mean'},usesqrtm);
+[r,e] = compareapprox(f,J,x0,0.01^2*eye(2),500,[],{'sampling','bhattacharyya_r','jeffreys','bhattacharyya_mean'},usesqrtm);
 close all
 displayapprox(r,1,1);
 Hm = hessianmax(fs,xx,x0)
@@ -59,4 +61,5 @@ ej = e.y.jeffreys.ds
 ej0 = e0.y.jeffreys.ds
 ebm = e.y.bhattacharyya_mean.ds
 ebm0 = e0.y.bhattacharyya_mean.ds
+e.table
 %% for fx: n -> m, jacobian is: m by n, hessian: m by n by n
