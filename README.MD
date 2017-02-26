@@ -31,4 +31,4 @@ References
 ------------------
 Please cite the following paper if you use some these consideration of this package for a Scientific Publication. We employed them for Inertial motion reconstruction.
 
- Peppoloni L., Filippeschi A., Ruffaldi E. & Avizzano C.A. (2013). A novel 7 degrees of freedom model for upper limb kinematic reconstruction based   on wearable sensors. In Intelligent Systems and Informatics (SISY), 2013 IEEE 11th International Symposium on (pp. 105-110). .  doi:10.1109/SISY.2013.6662551
+ Peppoloni L., Filippeschi A., Ruffaldi E. & Avizzano C.A. (2013). A novel 7 degrees of freedom model for upper limb kinematic reconstruction based   on wearable sensors. In Intelligent Systems and Informatics (SISY), 2013 IEEE 11th International Symposium on (pp. 105-110). .  [doi:10.1109/SISY.2013.6662551](http://ieeexplore.ieee.org/document/6662551/)
